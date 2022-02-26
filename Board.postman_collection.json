@@ -41,28 +41,30 @@
 			"response": []
 		},
 		{
-			"name": "[User] Details",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
+			"name": "[User] Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
 			},
+			"response": []
+		},
+		{
+			"name": "[User] Details",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "username",
-							"value": "user",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "pass",
-							"type": "text"
-						}
-					]
-				},
 				"url": {
 					"raw": "http://localhost:8080/user",
 					"protocol": "http",
@@ -79,27 +81,9 @@
 		},
 		{
 			"name": "[App] Metrics",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "username",
-							"value": "user",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "pass",
-							"type": "text"
-						}
-					]
-				},
 				"url": {
 					"raw": "http://localhost:8080/actuator",
 					"protocol": "http",

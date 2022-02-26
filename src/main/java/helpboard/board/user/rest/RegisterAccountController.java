@@ -2,6 +2,7 @@ package helpboard.board.user.rest;
 
 import helpboard.board.user.domain.User;
 import helpboard.board.user.rest.view.RegisterAccountDto;
+import helpboard.board.user.rest.view.UserProfileDto;
 import helpboard.board.user.service.RegisterAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/user")
@@ -23,6 +26,8 @@ public class RegisterAccountController {
     }
 
     private ResponseEntity<?> toResponse(User created) {
-        return ResponseEntity.ok(created.getId());
+        return ResponseEntity
+                .created(URI.create("/user"))
+                .body(UserProfileDto.from(created));
     }
 }

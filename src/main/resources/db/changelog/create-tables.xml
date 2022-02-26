@@ -85,4 +85,21 @@
         </createIndex>
 
     </changeSet>
+
+
+    <changeSet id="03" author="pelczarp">
+
+        <addColumn tableName="user">
+            <column name="username" type="varchar(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="text">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <createIndex indexName="idx_username" tableName="user">
+            <column name="username"/>
+        </createIndex>
+    </changeSet>
 </databaseChangeLog>

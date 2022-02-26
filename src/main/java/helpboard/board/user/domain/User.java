@@ -17,7 +17,7 @@ public class User {
     @Column
     private String username;
 
-    @Column
+    @Column(name = "password")
     private String encryptedPassword;
 
     private User(UUID id, String username) {
@@ -30,8 +30,8 @@ public class User {
         return new User(id, username);
     }
 
-    public void changePassword(String encrytpedPassword) {
-        this.encryptedPassword = encrytpedPassword;
+    public void changePassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
     }
 
     public UUID getId() {

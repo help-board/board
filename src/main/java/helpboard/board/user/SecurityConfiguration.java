@@ -38,8 +38,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginProcessingUrl("/auth/login")
                     .permitAll()
-                    .successHandler(successHandler())
-                    .failureHandler(failureHandler())
+                    .successForwardUrl("/auth/success")
+//                    .successHandler(successHandler())
+                    .failureForwardUrl("/auth/failure")
+//                    .failureHandler(failureHandler())
                     .and()
                 .exceptionHandling() // 1
                     .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));

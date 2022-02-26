@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping(path = "/user", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class RegisterAccountController {
 

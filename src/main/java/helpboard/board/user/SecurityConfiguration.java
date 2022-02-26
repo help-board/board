@@ -1,6 +1,7 @@
 package helpboard.board.user;
 
-import helpboard.board.user.domain.Role;
+import helpboard.board.user.service.RepositoryUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,9 @@ import java.io.IOException;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    RepositoryUserDetailsService repositoryUserDetailsService;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -61,10 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
-                .roles(Role.User.toString());
+        auth.userDetailsService(repositoryUserDetailsService);
     }
 
     @Bean

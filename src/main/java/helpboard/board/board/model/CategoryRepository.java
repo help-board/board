@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public interface CategoryRepository {
 
-    Optional<Offer> findOne(UUID offerId);
+    Optional<Category> findOne(UUID categoryId);
+
     Collection<Category> getAll();
 }

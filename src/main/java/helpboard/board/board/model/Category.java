@@ -7,9 +7,10 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@NoArgsConstructor
 @Getter
 @Table(name = "categories")
 public class Category {

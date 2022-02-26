@@ -1,5 +1,6 @@
 package helpboard.board.board.rest.view;
 
+import helpboard.board.board.model.Category;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,4 +14,12 @@ public class CategoryDto {
     UUID id;
     String title;
     String description;
+
+    public static CategoryDto from(Category category) {
+        return CategoryDto.builder()
+                .id(category.getId())
+                .title(category.getTitle())
+                .description(category.getDescription())
+                .build();
+    }
 }

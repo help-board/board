@@ -10,8 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Getter
 @Table(name = "offers")
 public class Offer {
@@ -68,34 +70,5 @@ public class Offer {
     public Offer deactivate() {
         this.active = Boolean.FALSE;
         return this;
-    }
-
-    public OfferDetailsDto toOfferDetailsDto(Category category) {
-        return OfferDetailsDto.builder()
-                .id(this.id)
-                .title(this.title)
-                .description(this.description)
-                .telephone(this.telephone)
-                .contactName(this.contactName)
-                .location(this.location)
-                .freeSpace(this.freeSpace)
-                .active(this.active)
-                .created(this.created)
-                .category(category)
-                .build();
-    }
-
-    public OfferListDto toOfferListDto() {
-        return OfferListDto.builder()
-                .id(this.id)
-                .title(this.title)
-                .description(this.description)
-                .telephone(this.telephone)
-                .contactName(this.contactName)
-                .location(this.location)
-                .freeSpace(this.freeSpace)
-                .active(this.active)
-                .created(this.created)
-                .build();
     }
 }

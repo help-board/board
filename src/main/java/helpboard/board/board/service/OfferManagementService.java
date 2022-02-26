@@ -35,13 +35,11 @@ public class OfferManagementService {
     public OfferDetailsDto details(UUID offerId) {
         final var offer = loadOffer(offerId);
         final var category = loadCategory(offer.getCategoryId());
-        return offer.toOfferDetailsDto(category);
+        return OfferDetailsDto.from(offer, category);
     }
 
-    public List<OfferListDto> list() {
-        return offerSearchRepository.findAll().stream()
-                .map(Offer::toOfferListDto)
-                .collect(Collectors.toList());
+    public List<Offer> list() {
+        return offerSearchRepository.findAll();
     }
 
     public void updateFreeSpace(UUID offerId, OfferDto offerDto) {

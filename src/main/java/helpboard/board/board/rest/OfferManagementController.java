@@ -1,12 +1,13 @@
 package helpboard.board.board.rest;
 
-import helpboard.board.board.service.OfferManagementService;
 import helpboard.board.board.rest.view.OfferDto;
+import helpboard.board.board.service.OfferManagementService;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,27 +25,32 @@ public class OfferManagementController {
     OfferManagementService offerManagementService;
 
     @PostMapping(value = "/{userId}")
-    public void create(@PathVariable(value = "userId") UUID userId, @RequestBody OfferDto offerDto) {
+    public ResponseEntity<?> create(@PathVariable(value = "userId") UUID userId, @RequestBody OfferDto offerDto) {
         offerManagementService.createOffer(userId, offerDto);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/{offerId}")
-    public void update(@PathVariable(value = "offerId") UUID offerId, @RequestBody OfferDto offerDto) {
+    public ResponseEntity<?> update(@PathVariable(value = "offerId") UUID offerId, @RequestBody OfferDto offerDto) {
         offerManagementService.updateFreeSpace(offerId, offerDto);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/{offerId}")
-    public void delete(@PathVariable(value = "offerId") UUID offerId) {
+    public ResponseEntity<?> delete(@PathVariable(value = "offerId") UUID offerId) {
         offerManagementService.delete(offerId);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/{offerId}/deactivate")
-    public void deactivate(@PathVariable(value = "offerId") UUID offerId) {
+    public ResponseEntity<?> deactivate(@PathVariable(value = "offerId") UUID offerId) {
         offerManagementService.deactivate(offerId);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/{offerId}/activate")
-    public void activate(@PathVariable(value = "offerId") UUID offerId) {
+    public ResponseEntity<?> activate(@PathVariable(value = "offerId") UUID offerId) {
         offerManagementService.activate(offerId);
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,4 +1,4 @@
-package helpboard.board.user.controller;
+package helpboard.board.user.rest;
 
 import lombok.Builder;
 import lombok.Data;

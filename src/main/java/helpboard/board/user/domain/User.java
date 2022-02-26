@@ -1,16 +1,44 @@
 package helpboard.board.user.domain;
 
-import java.util.UUID;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.UUID;
+
 @Entity
-@Data
 @NoArgsConstructor
 public class User {
 
     @Id
     private UUID id;
+
+    @Column
+    private String username;
+
+    @Column
+    private String encryptedPassword;
+
+    private User(UUID id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
+    public static User create(String username) {
+        var id = UUID.randomUUID();
+        return new User(id, username);
+    }
+
+    public void changePassword(String encrytpedPassword) {
+        this.encryptedPassword = encrytpedPassword;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }

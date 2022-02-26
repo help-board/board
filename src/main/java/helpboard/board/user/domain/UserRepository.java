@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository {
 
     Optional<User> findOne(UUID userId);
+
+    Optional<User> findByUsername(String username);
+
+    boolean save(User user);
 }

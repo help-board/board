@@ -9,8 +9,11 @@ import helpboard.board.board.rest.view.OfferDetailsDto;
 import helpboard.board.board.rest.view.OfferDto;
 import helpboard.board.board.rest.view.OfferListDto;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import helpboard.board.user.domain.UserPrincipal;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,8 +28,8 @@ public class OfferManagementService {
     OfferSearchRepository offerSearchRepository;
     CategoryRepository categoryRepository;
 
-    public void createOffer(UUID userId, OfferDto offerDto) {
-        var offer = Offer.create(userId)
+    public void createOffer(UserPrincipal loggedUser, OfferDto offerDto) {
+        var offer = Offer.create(loggedUser.getUserId())
                 .updateOfferDetails(offerDto)
                 .activate();
         offerRepository.save(offer);
@@ -42,26 +45,36 @@ public class OfferManagementService {
         return offerSearchRepository.findAll();
     }
 
-    public void updateFreeSpace(UUID offerId, OfferDto offerDto) {
+    public void updateFreeSpace(UserPrincipal loggedUser, UUID offerId, OfferDto offerDto) {
         var offer = loadOffer(offerId);
+        checkOwnership(offer, loggedUser);
         offerRepository.save(offer.updateOfferDetails(offerDto));
     }
 
-    public void delete(UUID offerId) {
+    public void delete(UserPrincipal loggedUser, UUID offerId) {
         final var offer = loadOffer(offerId);
+        checkOwnership(offer, loggedUser);
         offerRepository.delete(offer);
     }
 
-    public void deactivate(UUID offerId) {
+    public void deactivate(UserPrincipal loggedUser, UUID offerId) {
         var offer = loadOffer(offerId);
+        checkOwnership(offer, loggedUser);
         offer.deactivate();
         offerRepository.save(offer);
     }
 
-    public void activate(UUID offerId) {
+    public void activate(UserPrincipal loggedUser, UUID offerId) {
         var offer = loadOffer(offerId);
+        checkOwnership(offer, loggedUser);
         offer.activate();
         offerRepository.save(offer);
+    }
+
+    private void checkOwnership(Offer offer, UserPrincipal loggedUser) {
+        if (!Objects.equals(offer.getOwnerId(), loggedUser.getUserId())) {
+            throw new IllegalStateException("Not permitted");
+        }
     }
 
     private Offer loadOffer(UUID offerId) {

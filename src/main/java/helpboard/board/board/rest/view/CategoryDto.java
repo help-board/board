@@ -1,4 +1,4 @@
-package helpboard.board.board.view;
+package helpboard.board.board.rest.view;
 
 import java.util.UUID;
 import lombok.AccessLevel;

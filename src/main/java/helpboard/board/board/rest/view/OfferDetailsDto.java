@@ -1,4 +1,4 @@
-package helpboard.board.board.view;
+package helpboard.board.board.rest.view;
 
 import helpboard.board.board.model.Category;
 import java.time.LocalDateTime;

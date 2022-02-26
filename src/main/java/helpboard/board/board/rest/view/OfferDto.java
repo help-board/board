@@ -1,23 +1,20 @@
-package helpboard.board.board.view;
+package helpboard.board.board.rest.view;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AccessLevel;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Data
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class OfferListDto {
-    UUID id;
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class OfferDto {
+    UUID categoryId;
     String title;
     String description;
     String telephone;
     String contactName;
     String location;
     Integer freeSpace;
-    Boolean active;
-    LocalDateTime created;
 }

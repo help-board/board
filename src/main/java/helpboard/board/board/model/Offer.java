@@ -1,8 +1,8 @@
 package helpboard.board.board.model;
 
-import helpboard.board.board.view.OfferDetailsDto;
-import helpboard.board.board.view.OfferDto;
-import helpboard.board.board.view.OfferListDto;
+import helpboard.board.board.rest.view.OfferDetailsDto;
+import helpboard.board.board.rest.view.OfferDto;
+import helpboard.board.board.rest.view.OfferListDto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;

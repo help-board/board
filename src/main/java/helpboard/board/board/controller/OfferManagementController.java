@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/offer", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/offer/manage", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OfferManagementController {
@@ -27,16 +27,6 @@ public class OfferManagementController {
     @PostMapping(value = "/{userId}")
     public void create(@PathVariable(value = "userId") UUID userId, @RequestBody OfferDto offerDto) {
         offerManagementService.createOffer(userId, offerDto);
-    }
-
-    @GetMapping(value = "/{offerId}")
-    public void details(@PathVariable(value = "offerId") UUID offerId) {
-        offerManagementService.details(offerId);
-    }
-
-    @GetMapping(value = "/list")
-    public void list() {
-        offerManagementService.list();
     }
 
     @PutMapping(value = "/{offerId}")

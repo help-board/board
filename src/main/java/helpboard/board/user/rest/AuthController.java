@@ -1,33 +1,36 @@
 package helpboard.board.user.rest;
 
-import lombok.Builder;
-import lombok.Data;
+import helpboard.board.user.rest.view.LoginResultDto;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     @PostMapping("/success")
-    public Object loginSuccess() {
-        return "ok";
-        // FIXME
-        //return ResponseEntity.ok(AuthResult.builder().status(true));
+    public ResponseEntity<?> loginSuccess() {
+        return ResponseEntity.ok(LoginResultDto.builder().result(true).build());
     }
 
     @PostMapping("/failure")
-    public Object loginFailure() {
-        return "fail";
-        // FIXME
-        //return ResponseEntity.ok(AuthResult.builder().status(false).message("failed"));
+    public ResponseEntity<?> loginFailure(HttpServletRequest request) {
+        return ResponseEntity.ok(LoginResultDto.builder().result(false).message(loginErrorMessage(request)).build());
     }
 
-    @Data
-    @Builder
-    private static class AuthResult {
-        boolean status;
-        String message;
+    private String loginErrorMessage(HttpServletRequest request) {
+        Object ex = request.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+
+        if (ex instanceof AuthenticationException) {
+            return ((AuthenticationException) ex).getMessage();
+        }
+
+        return null;
     }
 }

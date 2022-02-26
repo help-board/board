@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="03" author="Damian Rudczyk" >
+        <insert tableName="category">
+            <column name="id" value="a21577a9-412e-4269-b6e7-e6369078ab22"/>
+            <column name="title" value="CAR"/>
+            <column name="description" value="Transport potrzebujących"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="id" value="81b84c69-1c9a-418f-8538-66e47041a65a"/>
+            <column name="title" value="ACCOMMODATION"/>
+            <column name="description" value="Darmowe zakwaterowanie"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

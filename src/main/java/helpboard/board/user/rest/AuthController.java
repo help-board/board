@@ -4,6 +4,7 @@ import helpboard.board.user.rest.view.LoginResultDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,11 @@ public class AuthController {
     @PostMapping("/failure")
     public ResponseEntity<?> loginFailure(HttpServletRequest request) {
         return ResponseEntity.ok(LoginResultDto.builder().result(false).message(loginErrorMessage(request)).build());
+    }
+
+    @GetMapping("/logout-success")
+    public ResponseEntity<?> logoutSuccess() {
+        return ResponseEntity.ok(LoginResultDto.builder().result(true).build());
     }
 
     private String loginErrorMessage(HttpServletRequest request) {

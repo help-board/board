@@ -1,12 +1,15 @@
 plugins {
 	id 'org.springframework.boot' version '2.6.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'com.google.cloud.tools.jib' version '3.2.0'
 	id 'java'
 }
-
 group = 'helpboard'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+jib.to.image = 'helpboard'
+jib.from.image = 'openjdk:11-jre'
 
 configurations {
 	compileOnly {

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface OfferSearchRepository extends JpaRepository<Offer, UUID> {
 
     List<Offer> findAll();
+
+    List<Offer> findByOwnerId(UUID ownerId);
 }

@@ -18,7 +18,8 @@ public class OfferListDto {
     String telephone;
     String contactName;
     String location;
-    Integer freeSpace;
+    Integer freeSpaceFrom;
+    Integer freeSpaceTo;
     Boolean active;
     LocalDateTime created;
 
@@ -30,7 +31,8 @@ public class OfferListDto {
                 .telephone(offer.getTelephone())
                 .contactName(offer.getContactName())
                 .location(offer.getLocation())
-                .freeSpace(offer.getFreeSpace())
+                .freeSpaceFrom(offer.getFreeSpaceFrom())
+                .freeSpaceTo(offer.getFreeSpaceTo())
                 .active(offer.getActive())
                 .created(offer.getCreated())
                 .build();

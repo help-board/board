@@ -51,9 +51,10 @@
             <column name="contact_name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="free_space" type="INT">
+            <column name="free_space_from" type="INT">
                 <constraints nullable="false"/>
             </column>
+            <column name="free_space_to" type="INT"/>
             <column name="active" type="BOOLEAN">
                 <constraints nullable="false"/>
             </column>

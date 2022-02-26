@@ -1,8 +1,7 @@
 package helpboard.board.board.model;
 
-import helpboard.board.board.rest.view.OfferDetailsDto;
+import static com.google.common.base.Preconditions.checkState;
 import helpboard.board.board.rest.view.OfferDto;
-import helpboard.board.board.rest.view.OfferListDto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -35,8 +34,10 @@ public class Offer {
     private String contactName;
     private String location;
 
-    @Column(name = "free_space")
-    private Integer freeSpace;
+    @Column(name = "free_space_from")
+    private Integer freeSpaceFrom;
+    @Column(name = "free_space_to")
+    private Integer freeSpaceTo;
     private Boolean active;
     private LocalDateTime created;
 
@@ -58,17 +59,28 @@ public class Offer {
         this.telephone = offerDto.getTelephone();
         this.contactName = offerDto.getContactName();
         this.location = offerDto.getLocation();
-        this.freeSpace = offerDto.getFreeSpace();
+        this.freeSpaceFrom = offerDto.getFreeSpaceFrom();
+        this.freeSpaceTo = offerDto.getFreeSpaceTo();
         return this;
     }
 
     public Offer activate() {
+        checkState(isActivate(), "Offer already activate!");
         this.active = Boolean.TRUE;
         return this;
     }
 
     public Offer deactivate() {
+        checkState(isDeactivated(), "Offer already deactivate!");
         this.active = Boolean.FALSE;
         return this;
+    }
+
+    private Boolean isDeactivated() {
+        return this.active == Boolean.FALSE;
+    }
+
+    private Boolean isActivate() {
+        return this.active == Boolean.TRUE;
     }
 }

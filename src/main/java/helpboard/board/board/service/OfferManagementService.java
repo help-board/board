@@ -28,11 +28,11 @@ public class OfferManagementService {
     OfferSearchRepository offerSearchRepository;
     CategoryRepository categoryRepository;
 
-    public void createOffer(UserPrincipal loggedUser, OfferDto offerDto) {
+    public Offer createOffer(UserPrincipal loggedUser, OfferDto offerDto) {
         var offer = Offer.create(loggedUser.getUserId())
                 .updateOfferDetails(offerDto)
                 .activate();
-        offerRepository.save(offer);
+        return offerRepository.save(offer);
     }
 
     public OfferDetailsDto details(UUID offerId) {

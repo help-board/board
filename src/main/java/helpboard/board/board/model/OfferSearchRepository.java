@@ -1,8 +1,12 @@
 package helpboard.board.board.model;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface OfferSearchRepository {
+@Repository
+public interface OfferSearchRepository extends JpaRepository<Offer, UUID> {
 
-    Collection<Offer> getAll();
+    List<Offer> findAll();
 }

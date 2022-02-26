@@ -1,15 +1,17 @@
-version: '3.8'
+version: '3'
 services:
-  db:
+  postgres:
     image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    hostname: postgres
     ports:
-      - '5432:5432'
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
-      - db:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
 volumes:
-  db:
-    driver: local
+  postgres-data:

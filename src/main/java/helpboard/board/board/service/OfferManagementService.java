@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OfferManagementService {
@@ -49,7 +51,7 @@ public class OfferManagementService {
 
     public void delete(UUID offerId) {
         final var offer = loadOffer(offerId);
-        offerRepository.remove(offer);
+        offerRepository.delete(offer);
     }
 
     public void deactivate(UUID offerId) {
@@ -65,11 +67,11 @@ public class OfferManagementService {
     }
 
     private Offer loadOffer(UUID offerId) {
-        return offerRepository.findOne(offerId).orElseThrow(() -> offerNotFound(offerId));
+        return offerRepository.findById(offerId).orElseThrow(() -> offerNotFound(offerId));
     }
 
     private Category loadCategory(UUID categoryId) {
-        return categoryRepository.findOne(categoryId).orElseThrow(() -> categoryNotFound(categoryId));
+        return categoryRepository.findById(categoryId).orElseThrow(() -> categoryNotFound(categoryId));
     }
 
     private RuntimeException offerNotFound(UUID offerId) {

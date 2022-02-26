@@ -1,15 +1,10 @@
 package helpboard.board.board.model;
 
-import java.util.Optional;
 import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OfferRepository {
+public interface OfferRepository extends JpaRepository<Offer, UUID> {
 
-    Optional<Offer> findOne(UUID offerId);
-
-    boolean save(Offer offer);
-
-    boolean remove(Offer offer);
 }

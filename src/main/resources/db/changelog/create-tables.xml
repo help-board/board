@@ -8,13 +8,13 @@
 
     <changeSet id="02" author="Damian Rudczyk">
 
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
         </createTable>
 
-        <createTable tableName="category">
+        <createTable tableName="categories">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -26,7 +26,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="offer">
+        <createTable tableName="offers">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -63,22 +63,22 @@
         </createTable>
 
         <addForeignKeyConstraint baseColumnNames="owner_id"
-                                 baseTableName="offer"
+                                 baseTableName="offers"
                                  constraintName="fk_offer_owner_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="user"/>
+                                 referencedTableName="users"/>
 
         <addForeignKeyConstraint baseColumnNames="category_id"
-                                 baseTableName="offer"
+                                 baseTableName="offers"
                                  constraintName="fk_offer_category_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="category"/>
+                                 referencedTableName="categories"/>
 
-        <createIndex indexName="idx_category" tableName="category">
+        <createIndex indexName="idx_category" tableName="categories">
             <column name="title"/>
         </createIndex>
 
-        <createIndex indexName="idx_offer" tableName="offer">
+        <createIndex indexName="idx_offer" tableName="offers">
             <column name="location"/>
             <column name="owner_id"/>
             <column name="category_id"/>
@@ -89,7 +89,7 @@
 
     <changeSet id="03" author="pelczarp">
 
-        <addColumn tableName="user">
+        <addColumn tableName="users">
             <column name="username" type="varchar(255)">
                 <constraints unique="true" nullable="false"/>
             </column>
@@ -98,7 +98,7 @@
             </column>
         </addColumn>
 
-        <createIndex indexName="idx_username" tableName="user">
+        <createIndex indexName="idx_username" tableName="users">
             <column name="username"/>
         </createIndex>
     </changeSet>

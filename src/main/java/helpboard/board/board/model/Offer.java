@@ -13,7 +13,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-@Table(name = "offer")
+@Table(name = "offers")
 public class Offer {
 
     @Id

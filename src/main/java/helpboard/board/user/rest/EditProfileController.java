@@ -1,6 +1,7 @@
 package helpboard.board.user.rest;
 
-import org.springframework.security.core.Authentication;
+import helpboard.board.user.domain.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,7 @@ public class EditProfileController {
 
     @GetMapping
     @RolesAllowed("User")
-    public String profileView(Authentication authentication) {
-        return "profile: " + authentication.getPrincipal();
+    public String profileView(@AuthenticationPrincipal User user) {
+        return "profile: " + user.getUsername();
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -23,13 +24,22 @@ public class OfferManagementController {
     OfferManagementService offerManagementService;
 
     @PostMapping(value = "/")
+    @RolesAllowed("User")
     public ResponseEntity<?> create(@AuthenticationPrincipal UserPrincipal loggedUser,
                                     @RequestBody OfferDto offerDto) {
         offerManagementService.createOffer(loggedUser, offerDto);
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping(value = "/list")
+    @RolesAllowed("User")
+    public ResponseEntity<?> lis(@AuthenticationPrincipal UserPrincipal loggedUser) {
+        // FIXME list user's offers ONLY!
+        return ResponseEntity.notFound().build();
+    }
+
     @PutMapping(value = "/{offerId}")
+    @RolesAllowed("User")
     public ResponseEntity<?> update(@AuthenticationPrincipal UserPrincipal loggedUser,
                                     @PathVariable(value = "offerId") UUID offerId,
                                     @RequestBody OfferDto offerDto) {
@@ -38,6 +48,7 @@ public class OfferManagementController {
     }
 
     @DeleteMapping(value = "/{offerId}")
+    @RolesAllowed("User")
     public ResponseEntity<?> delete(@AuthenticationPrincipal UserPrincipal loggedUser,
                                     @PathVariable(value = "offerId") UUID offerId) {
         offerManagementService.delete(loggedUser, offerId);
@@ -45,6 +56,7 @@ public class OfferManagementController {
     }
 
     @PutMapping(value = "/{offerId}/deactivate")
+    @RolesAllowed("User")
     public ResponseEntity<?> deactivate(@AuthenticationPrincipal UserPrincipal loggedUser,
                                         @PathVariable(value = "offerId") UUID offerId) {
         offerManagementService.deactivate(loggedUser, offerId);
@@ -52,6 +64,7 @@ public class OfferManagementController {
     }
 
     @PutMapping(value = "/{offerId}/activate")
+    @RolesAllowed("User")
     public ResponseEntity<?> activate(@AuthenticationPrincipal UserPrincipal loggedUser,
                                       @PathVariable(value = "offerId") UUID offerId) {
         offerManagementService.activate(loggedUser, offerId);

@@ -1,24 +1,27 @@
 package helpboard.board.board.model;
 
+import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.UUID;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "offer")
 public class Offer {
 
     @Id
     private UUID id;
+
+    @Column(name = "owner_id")
     private UUID ownerId;
 
-    private UUID category;
+    @Column(name = "category_id")
+    private UUID categoryId;
 
-    private String title;
-    private String description;
-    private String location;
-
-    private String contact;
-    private String contactName;
+    @Embedded
+    private OfferDetails offerDetails;
 
     public Offer create(UUID ownerId) {
         UUID offerId = UUID.randomUUID();

@@ -12,3 +12,11 @@ SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/postgres
 SPRING_DATASOURCE_USERNAME=postgres
 SPRING_DATASOURCE_PASSWORD=postgres
 ```
+
+### Redis ops
+
+Delete all sessions:
+
+```
+redis-cli keys '*' | xargs redis-cli del
+```

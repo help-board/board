@@ -1,6 +1,7 @@
 package helpboard.board;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.lang.annotation.*;
 
@@ -9,5 +10,6 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @SpringBootTest
+@ActiveProfiles("test")
 public @interface EnableIntegrationTest {
 }

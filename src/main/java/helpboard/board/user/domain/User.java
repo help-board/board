@@ -22,14 +22,37 @@ public class User {
     @Column(name = "password")
     private String encryptedPassword;
 
-    private User(UUID id, String username) {
+    @Column(name = "provider_id")
+    private String providerId;
+
+    @Column(name = "provider_user_id")
+    private String providerUserId;
+
+    @Column(name = "display_name")
+    private String displayName;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Column(name = "profile_url")
+    private String profileUrl;
+
+    private User(UUID id, String username, String providerId, String providerUserId) {
         this.id = id;
         this.username = username;
+        this.providerId = providerId;
+        this.providerUserId = providerUserId;
     }
 
     public static User create(String username) {
         var id = UUID.randomUUID();
-        return new User(id, username);
+        return new User(id, username, null, null);
+    }
+
+    public static User createExternalUser(String providerId, String providerUserId) {
+        var id = UUID.randomUUID();
+        var syntheticUsername = String.format("provider:%s:%s", providerId, providerUserId);
+        return new User(id, syntheticUsername, providerId, providerUserId);
     }
 
     public void changePassword(String encryptedPassword) {
@@ -46,5 +69,11 @@ public class User {
 
     public String getEncryptedPassword() {
         return encryptedPassword;
+    }
+
+    public void updateProfile(String displayName, String imageUrl, String profileUrl) {
+        this.displayName = displayName;
+        this.imageUrl = imageUrl;
+        this.profileUrl = profileUrl;
     }
 }

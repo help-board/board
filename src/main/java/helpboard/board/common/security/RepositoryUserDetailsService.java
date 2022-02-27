@@ -1,4 +1,4 @@
-package helpboard.board.user.service;
+package helpboard.board.common.security;
 
 import helpboard.board.user.domain.UserPrincipal;
 import helpboard.board.user.domain.UserRepository;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class RepositoryUserDetailsService implements UserDetailsService {
+class RepositoryUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 

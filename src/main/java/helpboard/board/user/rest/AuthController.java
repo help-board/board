@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(path = "/auth")
-public class AuthController {
+class AuthController {
 
     @PostMapping("/success")
     public ResponseEntity<?> loginSuccess() {

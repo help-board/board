@@ -1,4 +1,4 @@
-package helpboard.board.user;
+package helpboard.board.common.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
@@ -7,7 +7,7 @@ import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
 @EnableRedisHttpSession
-public class SessionConfig {
+class SessionConfig {
 
     @Bean
     public LettuceConnectionFactory connectionFactory() {

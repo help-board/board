@@ -1,4 +1,4 @@
-package helpboard.board.user;
+package helpboard.board.common.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Configuration
-public class SecurityConfig {
+class SecurityConfig {
 
     @Bean
     AuthenticationSuccessHandler successHandler() {

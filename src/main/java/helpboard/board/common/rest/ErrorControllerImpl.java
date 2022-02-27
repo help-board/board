@@ -10,7 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-public class ErrorControllerImpl implements ErrorController {
+class ErrorControllerImpl implements ErrorController {
 
     @RequestMapping("/error")
     public ResponseEntity<Object> handleError(HttpServletRequest request) {

@@ -1,6 +1,7 @@
 package helpboard.board.common.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsService repositoryUserDetailsService;
+
+    @Value("${auth.rememberme.secret:null}")
+    String rememberMeSecret;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -41,6 +45,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .successHandler(successHandler())
                     .failureForwardUrl("/auth/failure")
 //                    .failureHandler(failureHandler())
+                    .and()
+                .rememberMe()
+                    .key(rememberMeSecret)
+                    .rememberMeCookieName("auth_token_remember")
                     .and()
                 .exceptionHandling() // 1
                     .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));

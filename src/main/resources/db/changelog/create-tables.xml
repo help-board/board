@@ -103,4 +103,30 @@
             <column name="username"/>
         </createIndex>
     </changeSet>
+
+    <changeSet id="04" author="pelczarp">
+
+        <addColumn tableName="users">
+            <column name="provider_id" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="provider_user_id" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="display_name" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="image_url" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="profile_url" type="text">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <createIndex indexName="idx_provider_user_id" tableName="users">
+            <column name="provider_id"/>
+            <column name="provider_user_id"/>
+        </createIndex>
+    </changeSet>
 </databaseChangeLog>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/dictionaries", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/dictionaries")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DictionaryController {
@@ -20,12 +20,12 @@ public class DictionaryController {
     VoivodeshipRepository voivodeshipRepository;
     CategoryRepository categoryRepository;
 
-    @GetMapping(value = "/categories")
+    @GetMapping(value = "/categories", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getCategories() {
         return ResponseEntity.ok(categoryRepository.findAll());
     }
 
-    @GetMapping(value = "/voivodeships")
+    @GetMapping(value = "/voivodeships", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getVoivodeships() {
         return ResponseEntity.ok(voivodeshipRepository.findAll());
     }

@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/offer/manage", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/offer/manage")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 class OfferManagementController {
@@ -37,7 +37,7 @@ class OfferManagementController {
     CategoryRepository categoryRepository;
     VoivodeshipRepository voivodeshipRepository;
 
-    @PostMapping
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @RolesAllowed("User")
     public ResponseEntity<?> create(@AuthenticationPrincipal UserPrincipal loggedUser,
                                     @RequestBody OfferDto offerDto) {
@@ -50,14 +50,14 @@ class OfferManagementController {
                 .body(OfferDetailsDto.from(offer, category, voivodeship));
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @RolesAllowed("User")
     public ResponseEntity<?> list(@AuthenticationPrincipal UserPrincipal loggedUser, Pageable pageable) {
         final var result = offerSearchRepository.findByOwnerId(loggedUser.getUserId(), pageable);
         return ResponseEntity.ok(result);
     }
 
-    @PutMapping(value = "/{offerId}")
+    @PutMapping(value = "/{offerId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @RolesAllowed("User")
     public ResponseEntity<?> update(@AuthenticationPrincipal UserPrincipal loggedUser,
                                     @PathVariable(value = "offerId") UUID offerId,
@@ -66,7 +66,7 @@ class OfferManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping(value = "/{offerId}")
+    @DeleteMapping(value = "/{offerId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @RolesAllowed("User")
     public ResponseEntity<?> delete(@AuthenticationPrincipal UserPrincipal loggedUser,
                                     @PathVariable(value = "offerId") UUID offerId) {
@@ -74,7 +74,7 @@ class OfferManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(value = "/{offerId}/deactivate")
+    @PutMapping(value = "/{offerId}/deactivate", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @RolesAllowed("User")
     public ResponseEntity<?> deactivate(@AuthenticationPrincipal UserPrincipal loggedUser,
                                         @PathVariable(value = "offerId") UUID offerId) {
@@ -82,7 +82,7 @@ class OfferManagementController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(value = "/{offerId}/activate")
+    @PutMapping(value = "/{offerId}/activate", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @RolesAllowed("User")
     public ResponseEntity<?> activate(@AuthenticationPrincipal UserPrincipal loggedUser,
                                       @PathVariable(value = "offerId") UUID offerId) {

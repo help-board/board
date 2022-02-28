@@ -15,20 +15,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/offer", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/offer")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 class OfferSearchController {
 
     OfferSearchService offerSearchService;
 
-    @GetMapping(value = "/{offerId}")
+    @GetMapping(value = "/{offerId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> details(@PathVariable(value = "offerId") UUID offerId) {
         return ResponseEntity
                 .ok(offerSearchService.details(offerId));
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> list(@RequestParam(name = "categoryId") UUID categoryId,
                                   @RequestParam(name = "voivodeshipId", required = false) Integer voivodeshipId,
                                   @RequestParam(name = "persons", required = false) Integer persons,

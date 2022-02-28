@@ -37,7 +37,7 @@ class OfferManagementController {
     CategoryRepository categoryRepository;
     VoivodeshipRepository voivodeshipRepository;
 
-    @PostMapping(value = "/")
+    @PostMapping
     @RolesAllowed("User")
     public ResponseEntity<?> create(@AuthenticationPrincipal UserPrincipal loggedUser,
                                     @RequestBody OfferDto offerDto) {

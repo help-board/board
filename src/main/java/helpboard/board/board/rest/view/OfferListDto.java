@@ -15,9 +15,6 @@ import lombok.experimental.FieldDefaults;
 public class OfferListDto {
     UUID id;
     String title;
-    String description;
-    String telephone;
-    String contactName;
     String voivodeship;
     String city;
     Integer freeSpaceFrom;

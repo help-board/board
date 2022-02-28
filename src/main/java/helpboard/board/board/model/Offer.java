@@ -41,7 +41,7 @@ public class Offer {
     private Integer freeSpaceFrom;
     @Column(name = "free_space_to")
     private Integer freeSpaceTo;
-    private Boolean active;
+    private Boolean active = Boolean.FALSE;
     private LocalDateTime created;
 
     private Offer(UUID id, UUID ownerId, LocalDateTime created) {
@@ -69,13 +69,13 @@ public class Offer {
     }
 
     public Offer activate() {
-        checkState(isActivate(), "Offer already activate!");
+        checkState(!isActivate(), "Offer already activate!");
         this.active = Boolean.TRUE;
         return this;
     }
 
     public Offer deactivate() {
-        checkState(isDeactivated(), "Offer already deactivate!");
+        checkState(!isDeactivated(), "Offer already deactivate!");
         this.active = Boolean.FALSE;
         return this;
     }

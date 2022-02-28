@@ -2,6 +2,7 @@ package helpboard.board.board.rest.view;
 
 import helpboard.board.board.model.Category;
 import helpboard.board.board.model.Offer;
+import helpboard.board.board.model.Voivodeship;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AccessLevel;
@@ -18,21 +19,23 @@ public class OfferDetailsDto {
     String description;
     String telephone;
     String contactName;
-    String location;
+    String voivodeship;
+    String city;
     Integer freeSpaceFrom;
     Integer freeSpaceTo;
     Boolean active;
     LocalDateTime created;
     CategoryDto category;
 
-    public static OfferDetailsDto from(Offer offer, Category category) {
+    public static OfferDetailsDto from(Offer offer, Category category, Voivodeship voivodeship) {
         return OfferDetailsDto.builder()
                 .id(offer.getId())
                 .title(offer.getTitle())
                 .description(offer.getDescription())
                 .telephone(offer.getTelephone())
                 .contactName(offer.getContactName())
-                .location(offer.getLocation())
+                .city(offer.getCity())
+                .voivodeship(voivodeship.getValue())
                 .freeSpaceFrom(offer.getFreeSpaceFrom())
                 .freeSpaceTo(offer.getFreeSpaceTo())
                 .active(offer.getActive())

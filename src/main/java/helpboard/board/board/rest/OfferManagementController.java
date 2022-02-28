@@ -1,25 +1,24 @@
 package helpboard.board.board.rest;
 
-import helpboard.board.board.model.CategoryRepository;
-import helpboard.board.board.model.Offer;
-import helpboard.board.board.model.OfferSearchRepository;
+import helpboard.board.board.repository.CategoryRepository;
+import helpboard.board.board.repository.OfferSearchRepository;
+import helpboard.board.board.repository.VoivodeshipRepository;
 import helpboard.board.board.rest.view.OfferDetailsDto;
 import helpboard.board.board.rest.view.OfferDto;
-import helpboard.board.board.rest.view.OfferListDto;
 import helpboard.board.board.service.OfferManagementService;
 import helpboard.board.user.domain.UserPrincipal;
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import javax.annotation.security.RolesAllowed;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Pageable;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,23 +35,25 @@ class OfferManagementController {
     OfferManagementService offerManagementService;
     OfferSearchRepository offerSearchRepository;
     CategoryRepository categoryRepository;
+    VoivodeshipRepository voivodeshipRepository;
 
     @PostMapping(value = "/")
     @RolesAllowed("User")
     public ResponseEntity<?> create(@AuthenticationPrincipal UserPrincipal loggedUser,
                                     @RequestBody OfferDto offerDto) {
         var offer = offerManagementService.createOffer(loggedUser, offerDto);
-        var category = categoryRepository.findById(offerDto.getCategoryId())
-                .orElseThrow(() -> categoryNotFound(offerDto.getCategoryId()));
+        var category = categoryRepository.findById(offerDto.getCategoryId()).orElseThrow(this::notFound);
+        var voivodeship = voivodeshipRepository.findById(offerDto.getVoivodeshipId()).orElseThrow(this::notFound);
+
         return ResponseEntity
-                .created(URI.create("/offer/"+offer.getId()))
-                .body(OfferDetailsDto.from(offer, category));
+                .created(URI.create("/offer/" + offer.getId()))
+                .body(OfferDetailsDto.from(offer, category, voivodeship));
     }
 
-    @PostMapping(value = "/list")
+    @GetMapping(value = "/list")
     @RolesAllowed("User")
-    public ResponseEntity<?> list(@AuthenticationPrincipal UserPrincipal loggedUser) {
-        final var result = toOfferListDto(offerSearchRepository.findByOwnerId(loggedUser.getUserId()));
+    public ResponseEntity<?> list(@AuthenticationPrincipal UserPrincipal loggedUser, Pageable pageable) {
+        final var result = offerSearchRepository.findByOwnerId(loggedUser.getUserId(), pageable);
         return ResponseEntity.ok(result);
     }
 
@@ -89,14 +90,8 @@ class OfferManagementController {
         return ResponseEntity.ok().build();
     }
 
-    private List<OfferListDto> toOfferListDto(List<Offer> input) {
-        return input.stream()
-                .map(OfferListDto::from)
-                .collect(Collectors.toList());
-    }
-
-    private RuntimeException categoryNotFound(UUID categoryId) {
-        final var msg = "Not found category with id: " + categoryId;
+    private RuntimeException notFound() {
+        final var msg = "Not found";
         return new IllegalStateException(msg);
     }
 }

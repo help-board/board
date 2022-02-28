@@ -1,6 +1,5 @@
 package helpboard.board.board.model;
 
-import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,11 +9,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Getter
-@Table(name = "categories")
-public class Category {
+@Table(name = "voivodeship")
+public class Voivodeship {
 
     @Id
-    private UUID id;
-    private String title;
-    private String description;
+    private Integer id;
+    private String value;
 }

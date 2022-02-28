@@ -15,7 +15,8 @@ public class OfferDto {
     String description;
     String telephone;
     String contactName;
-    String location;
+    Integer voivodeshipId;
+    String city;
     Integer freeSpaceFrom;
     Integer freeSpaceTo;
 }

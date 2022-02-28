@@ -32,7 +32,10 @@ public class Offer {
 
     @Column(name = "contact_name")
     private String contactName;
-    private String location;
+
+    @Column(name = "voivodeship_id")
+    private Integer voivodeshipId;
+    private String city;
 
     @Column(name = "free_space_from")
     private Integer freeSpaceFrom;
@@ -58,7 +61,8 @@ public class Offer {
         this.description = offerDto.getDescription();
         this.telephone = offerDto.getTelephone();
         this.contactName = offerDto.getContactName();
-        this.location = offerDto.getLocation();
+        this.voivodeshipId = offerDto.getVoivodeshipId();
+        this.city = offerDto.getCity();
         this.freeSpaceFrom = offerDto.getFreeSpaceFrom();
         this.freeSpaceTo = offerDto.getFreeSpaceTo();
         return this;

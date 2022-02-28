@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="03" author="Damian Rudczyk">
+
+        <renameColumn tableName="offers"
+                      columnDataType="varchar(50)"
+                      newColumnName="city"
+                      oldColumnName="location"/>
+
+        <addColumn tableName="offers">
+            <column name="voivodeship_id"
+                    type="INT"/>
+        </addColumn>
+
+        <dropIndex indexName="idx_offer"
+                   tableName="offers"/>
+
+        <createIndex indexName="idx_offer_all" tableName="offers">
+            <column name="voivodeship_id"/>
+            <column name="owner_id"/>
+            <column name="category_id"/>
+        </createIndex>
+
+        <createTable tableName="voivodeship">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="value" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="voivodeship_id"
+                                 baseTableName="offers"
+                                 constraintName="fk_offer_voivodeship_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="voivodeship"/>
+
+        <insert tableName="voivodeship">
+            <column name="id" value="1"/>
+            <column name="value" value="Dolnośląskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="2"/>
+            <column name="value" value="Kujawsko-pomorskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="3"/>
+            <column name="value" value="Lubelskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="4"/>
+            <column name="value" value="Lubuskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="5"/>
+            <column name="value" value="Łódzkie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="6"/>
+            <column name="value" value="Małopolskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="7"/>
+            <column name="value" value="Mazowieckie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="8"/>
+            <column name="value" value="Opolskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="9"/>
+            <column name="value" value="Podkarpackie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="10"/>
+            <column name="value" value="Podlaskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="11"/>
+            <column name="value" value="Pomorskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="12"/>
+            <column name="value" value="Śląskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="13"/>
+            <column name="value" value="Świętokrzyskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="14"/>
+            <column name="value" value="Warmińsko-mazurskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="15"/>
+            <column name="value" value="Wielkopolskie"/>
+        </insert>
+        <insert tableName="voivodeship">
+            <column name="id" value="16"/>
+            <column name="value" value="Zachodniopomorskie"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

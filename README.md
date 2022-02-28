@@ -46,3 +46,22 @@ Delete all sessions:
 ```
 redis-cli keys '*' | xargs redis-cli del
 ```
+
+### GCR deployment
+Deploy current build do GCR registry:
+
+1. Prerequisites:
+- Docker
+- *[gcloud CLI](https://cloud.google.com/sdk/docs/install)*  
+- *[docker-credential-helper](https://cloud.google.com/container-registry/docs/advanced-authentication#docker_credential_helper)*  
+
+
+2. Build and deploy to the registry preconfigured in build.gradle
+```
+./gradlew jib
+```
+
+3. Force rolling update on GKE using one of following
+- run rolling update from the GCP Web Console
+- run rolling update procedure using kubectl tool
+

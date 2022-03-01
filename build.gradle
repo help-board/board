@@ -8,8 +8,9 @@ group = 'helpboard'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-jib.to.image = 'helpboard'
-jib.from.image = 'openjdk:11-jre'
+jib.to.image = 'gcr.io/oss-help/internal'
+jib.to.credHelper='gcr'
+jib.from.image = 'gcr.io/distroless/java11-debian11'
 
 configurations {
 	compileOnly {

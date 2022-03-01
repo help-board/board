@@ -4,11 +4,17 @@ plugins {
 	id 'com.google.cloud.tools.jib' version '3.2.0'
 	id 'java'
 }
+
+ext {
+	gitCommitHash = 'git describe --tags'.execute().text.trim()
+}
+
 group = 'helpboard'
-version = '0.0.1-SNAPSHOT'
+version = gitCommitHash
 sourceCompatibility = '11'
 
-jib.to.image = 'gcr.io/oss-help/internal'
+jib.to.image = 'gcr.io/oss-help/helpboard'
+jib.to.tags=["$version"]
 jib.to.credHelper='gcr'
 jib.from.image = 'gcr.io/distroless/java11-debian11'
 
@@ -61,4 +67,8 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task printProjectVersion(type: Exec)  {
+	println "Project version: " + project.version
 }

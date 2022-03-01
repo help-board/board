@@ -1,7 +1,9 @@
 package helpboard.board.common.security;
 
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @Import(SecurityConfig.class)
@@ -29,29 +34,39 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        http
+        http.cors().and()
                 .authorizeRequests()
                 .anyRequest()
                 .permitAll()
                 .and()
                 .logout()
-                    .logoutUrl("/auth/logout")
-                    .logoutSuccessUrl("/auth/logout-success")
-                    .and()
+                .logoutUrl("/auth/logout")
+                .logoutSuccessUrl("/auth/logout-success")
+                .and()
                 .formLogin()
-                    .loginProcessingUrl("/auth/login")
-                    .permitAll()
-                    .successForwardUrl("/auth/success")
+                .loginProcessingUrl("/auth/login")
+                .permitAll()
+                .successForwardUrl("/auth/success")
 //                    .successHandler(successHandler())
-                    .failureForwardUrl("/auth/failure")
+                .failureForwardUrl("/auth/failure")
 //                    .failureHandler(failureHandler())
-                    .and()
+                .and()
                 .rememberMe()
-                    .key(rememberMeSecret)
-                    .rememberMeCookieName("auth_token_remember")
-                    .and()
+                .key(rememberMeSecret)
+                .rememberMeCookieName("auth_token_remember")
+                .and()
                 .exceptionHandling() // 1
-                    .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Override
